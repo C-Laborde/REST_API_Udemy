@@ -1,14 +1,14 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
 stores = [
     {
-        'name': "My first store",
-        'items': [
+        "name": "My first store",
+        "items": [
             {
-                'name': 'Item1',
-                'price': 15.99
+                "name": "Item1",
+                "price": 15.99
             }
         ]
     }
@@ -21,7 +21,13 @@ stores = [
 # POST /store data:{name:}
 @app.route('/store', methods=['POST'])
 def create_store():
-    pass
+    request_data = request.get_json()
+    new_store = {
+        "name": request_data["name"],
+        "items": []
+    }
+    stores.append(new_store)
+    return jsonify(new_store)
 
 
 # GET /store/<string:name>
