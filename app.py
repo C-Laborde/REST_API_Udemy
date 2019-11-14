@@ -49,7 +49,15 @@ def get_stores():
 # POST /store/<string:name>/item {name:, price:}
 @app.route('/store/<string:name>/item', methods=['POST'])
 def create_item_in_store(name, price):
-    pass
+    request_data = request.get_json()
+    for store in stores:
+        if store["name"] == name:
+            item = {"name": request_data["name"],
+                    "price": request_data["price"]
+                    }
+            store["items"].append(item)
+            return jsonify({"added item": item})
+    return {"message": f'Store {name} was not found'}
 
 
 # GET /store/<string:name>/item
