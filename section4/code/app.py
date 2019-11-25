@@ -8,9 +8,10 @@ api = Api(app)
 
 class Student(Resource):
     def get(self, name):
-        return {"studend": name}
+        return {"student": name}
 
 
-api.add_resource(Student, "/student/<string:name>")    # http://127.0.0.1:5000/student/Paul
+# http://127.0.0.1:5000/student/Paul
+api.add_resource(Student, '/student/<string:name>')
 
 app.run(port=5000)
